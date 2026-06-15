@@ -174,6 +174,18 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 /* ===== HERO AVATAR ===== */
 .hero-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--accent);box-shadow:0 0 30px rgba(139,92,246,0.4);margin-bottom:24px;object-fit:cover}
 
+/* ===== SCREENSHOT GALLERY ===== */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);transition:all .4s;cursor:pointer;aspect-ratio:9/16}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gallery-item:hover{transform:translateY(-6px);border-color:rgba(139,92,246,0.3);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-item .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(6,6,11,0.9) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;opacity:0;transition:opacity .3s}
+.gallery-item:hover .overlay{opacity:1}
+.gallery-item .overlay .platform{font-size:.7rem;color:var(--accent2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.gallery-item .overlay .caption{font-size:.9rem;font-weight:600}
+.gallery-item .overlay .data{font-size:.78rem;color:var(--text2);margin-top:4px}
+
 /* ===== VIDEO GALLERY ===== */
 .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
 .video-card{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);transition:all .4s;cursor:pointer;background:var(--bg2)}
@@ -186,6 +198,13 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 .video-card .v-info{padding:16px 20px}
 .video-card .v-info h4{font-size:.9rem;font-weight:700;margin-bottom:4px}
 .video-card .v-info .v-meta{font-size:.75rem;color:var(--text3)}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;padding:40px}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:var(--radius-sm);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.lightbox .close{position:absolute;top:24px;right:24px;width:48px;height:48px;background:rgba(255,255,255,0.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.lightbox .close:hover{background:rgba(255,255,255,0.2)}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
@@ -226,6 +245,7 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
   <ul class="nav-links">
     <li><a href="#about">关于</a></li>
     <li><a href="#cases">案例</a></li>
+    <li><a href="#gallery">截图</a></li>
     <li><a href="#videos">视频</a></li>
     <li><a href="#experience">经历</a></li>
     <li><a href="#skills">技能</a></li>
@@ -243,7 +263,7 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 </div>
 <div class="hero-content">
   <img src="assets/avatar/avatar_web.jpg" alt="Mark 吕连生" class="hero-avatar">
-  <div class="hero-badge"><span class="pulse"></span> 求职中 · base 深圳</div>
+  <div class="hero-badge"><span class="pulse"></span> 求职中 · base 深圳 · 期望 8-12K</div>
   <h1>
     <span class="line"><span>Hi，我是</span></span>
     <span class="line"><span class="gradient">吕连生</span></span>
@@ -438,6 +458,73 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 </div>
 </section>
 
+<!-- SCREENSHOT GALLERY -->
+<section class="section" id="gallery" style="background:var(--bg2)">
+<div class="section-inner">
+  <div class="section-label">Screenshots</div>
+  <h2 class="section-title">后台数据实拍</h2>
+  <p class="section-desc">所有数据均为平台后台真实截图，点击可放大查看。</p>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/liutao-douyin_web.jpg" alt="深圳探房刘涛-抖音" loading="lazy">
+      <div class="overlay">
+        <span class="platform">抖音</span>
+        <span class="caption">深圳探房刘涛</span>
+        <span class="data">572万播放 · 9.38万点赞</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/laowu-douyin_web.jpg" alt="老吴在坪山-抖音" loading="lazy">
+      <div class="overlay">
+        <span class="platform">抖音</span>
+        <span class="caption">老吴在坪山</span>
+        <span class="data">29.5万播放 · 5.5万流量激励</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/laowu-xhs_web.jpg" alt="老吴在坪山-小红书" loading="lazy">
+      <div class="overlay">
+        <span class="platform">小红书</span>
+        <span class="caption">老吴在坪山</span>
+        <span class="data">3万观看 · 首页推荐93.2%</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/laowu-sph_web.jpg" alt="老吴在坪山-视频号" loading="lazy">
+      <div class="overlay">
+        <span class="platform">视频号</span>
+        <span class="caption">老吴在坪山</span>
+        <span class="data">视频号运营数据</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/yingjia-account_web.jpg" alt="深圳盈家找房" loading="lazy">
+      <div class="overlay">
+        <span class="platform">抖音</span>
+        <span class="caption">深圳盈家找房</span>
+        <span class="data">企业矩阵账号</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/huanyu-youtube_web.jpg" alt="寰宇笋盘-YouTube" loading="lazy">
+      <div class="overlay">
+        <span class="platform">YouTube</span>
+        <span class="caption">寰宇笋盘 GC Global</span>
+        <span class="data">5.18万订阅</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/new-data1_web.jpg" alt="最新数据截图" loading="lazy">
+      <div class="overlay">
+        <span class="platform">数据</span>
+        <span class="caption">最新运营数据</span>
+        <span class="data">后台真实数据</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 <!-- VIDEO SHOWCASE -->
 <section class="section" id="videos">
 <div class="section-inner">
@@ -488,6 +575,12 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
   </div>
 </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<button class="close" onclick="closeLightbox()">×</button>
+<img id="lightbox-img" src="" alt="">
+</div>
 
 <!-- EXPERIENCE -->
 <section class="section" id="experience" style="background:var(--bg2)">
@@ -572,7 +665,7 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 <div class="section-inner">
   <div class="section-label" style="justify-content:center">Get In Touch</div>
   <h2>期待与你聊聊</h2>
-  <p class="sub">短视频内容运营 · IP孵化 · base 深圳</p>
+  <p class="sub">短视频内容运营 · IP孵化 · base 深圳 · 期望 8-12K</p>
   <div class="contact-links">
     <a href="tel:13632929143" class="contact-link">
       <span class="cl-icon">📞</span>
@@ -708,7 +801,17 @@ gsap.utils.toArray('.video-card').forEach((card,i)=>{
 // ===== LIGHTBOX =====
 function openLightbox(item){
   const img=item.querySelector('img');
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lightbox-img');
+  lbImg.src=img.src.replace('_web','');
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
 }
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 </script>
 </body>
 </html>
