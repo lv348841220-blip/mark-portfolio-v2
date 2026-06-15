@@ -6,157 +6,207 @@
 <title>Mark 吕连生 | 短视频内容运营 & IP孵化</title>
 <meta name="description" content="13年影像经验，全链路短视频内容运营。IP孵化、账号增长、数据驱动。base 深圳。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;
-  --text:#e8e8ed;--text2:#9898a6;--text3:#5a5a6e;
-  --accent:#7c5cfc;--accent2:#a78bfa;--accent-glow:rgba(124,92,252,0.15);
-  --gold:#c9a96e;--green:#34d399;--blue:#60a5fa;--pink:#f472b6;--orange:#fb923c;
-  --radius:16px;--radius-sm:10px;
+  --bg:#06060b;--bg2:#0c0c14;--bg3:#12121e;--bg4:#1a1a2e;
+  --text:#f0f0f5;--text2:#8888a0;--text3:#555570;
+  --accent:#8b5cf6;--accent2:#a78bfa;--accent3:#c4b5fd;
+  --gold:#f5c542;--green:#22d3a8;--blue:#38bdf8;--pink:#f472b6;--red:#ef4444;--orange:#f97316;
+  --glass:rgba(255,255,255,0.03);--glass-border:rgba(255,255,255,0.06);
+  --glow:rgba(139,92,246,0.12);
+  --radius:20px;--radius-sm:12px;
 }
-html{scroll-behavior:smooth;font-size:16px}
-body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;line-height:1.6;overflow-x:hidden}
-a{color:var(--accent2);text-decoration:none;transition:color .2s}
-a:hover{color:var(--accent)}
-.container{max-width:1200px;margin:0 auto;padding:0 24px}
+html{scroll-behavior:auto}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans SC',sans-serif;line-height:1.6;overflow-x:hidden;cursor:none}
+::selection{background:var(--accent);color:#fff}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor{position:fixed;width:20px;height:20px;border:2px solid var(--accent);border-radius:50%;pointer-events:none;z-index:9999;transition:width .2s,height .2s,border-color .2s,background .2s;transform:translate(-50%,-50%);mix-blend-mode:difference}
+.cursor.hover{width:50px;height:50px;background:var(--accent);border-color:var(--accent)}
+.cursor-dot{position:fixed;width:6px;height:6px;background:var(--accent3);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+
+/* ===== NOISE OVERLAY ===== */
+.noise{position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 
 /* ===== NAV ===== */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;backdrop-filter:blur(20px);background:rgba(10,10,15,0.8);border-bottom:1px solid rgba(255,255,255,0.05);transition:all .3s}
-nav .container{display:flex;justify-content:space-between;align-items:center}
-nav .logo{font-weight:800;font-size:1.1rem;color:var(--text);letter-spacing:-0.5px}
-nav .logo span{color:var(--accent)}
-nav .nav-links{display:flex;gap:28px;list-style:none}
-nav .nav-links a{color:var(--text2);font-size:.85rem;font-weight:500;transition:color .2s}
-nav .nav-links a:hover{color:var(--text)}
-.nav-cta{background:var(--accent);color:#fff!important;padding:8px 20px;border-radius:8px;font-weight:600;font-size:.85rem;transition:transform .2s,box-shadow .2s}
-.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(124,92,252,0.4)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:all .4s}
+nav.scrolled{background:rgba(6,6,11,0.85);backdrop-filter:blur(24px) saturate(1.2);border-bottom:1px solid var(--glass-border);padding:14px 0}
+nav .inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:var(--text);letter-spacing:-0.5px}
+.nav-logo span{background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--text2);font-size:.82rem;font-weight:500;text-decoration:none;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width .3s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:linear-gradient(135deg,var(--accent),#6d28d9);color:#fff!important;padding:10px 24px;border-radius:10px;font-weight:600;font-size:.82rem;transition:all .3s;box-shadow:0 4px 20px rgba(139,92,246,0.3)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,0.5)}
+.nav-cta::after{display:none!important}
 
 /* ===== HERO ===== */
-.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(124,92,252,0.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 20%,rgba(201,169,110,0.05) 0%,transparent 40%);animation:float 20s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
-.hero-content{position:relative;z-index:2}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--accent-glow);border:1px solid rgba(124,92,252,0.3);border-radius:100px;font-size:.8rem;color:var(--accent2);margin-bottom:24px;animation:fadeUp .6s ease-out}
-.hero-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;letter-spacing:-2px;margin-bottom:20px;animation:fadeUp .6s ease-out .1s both}
-.hero h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:clamp(1rem,2vw,1.3rem);color:var(--text2);max-width:600px;margin-bottom:40px;font-weight:400;line-height:1.7;animation:fadeUp .6s ease-out .2s both}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;animation:fadeUp .6s ease-out .3s both}
-.stat-card{background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:24px 20px;text-align:center;transition:transform .3s,border-color .3s}
-.stat-card:hover{transform:translateY(-4px);border-color:rgba(124,92,252,0.3)}
-.stat-num{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--text);letter-spacing:-1px}
-.stat-num .unit{font-size:.7em;color:var(--accent2);font-weight:600}
-.stat-label{font-size:.75rem;color:var(--text3);margin-top:4px;font-weight:500}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:140px 0 100px}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg .orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.4;animation:orbFloat 15s ease-in-out infinite}
+.hero-bg .orb1{width:600px;height:600px;background:radial-gradient(circle,rgba(139,92,246,0.3),transparent);top:-200px;right:-100px;animation-delay:0s}
+.hero-bg .orb2{width:400px;height:400px;background:radial-gradient(circle,rgba(245,197,66,0.2),transparent);bottom:-100px;left:-100px;animation-delay:-5s}
+.hero-bg .orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(34,211,168,0.15),transparent);top:50%;left:50%;animation-delay:-10s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.05)}66%{transform:translate(-20px,20px) scale(0.95)}}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-content{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:0 32px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 20px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:100px;font-size:.78rem;color:var(--accent3);margin-bottom:32px;font-weight:500;backdrop-filter:blur(10px)}
+.hero-badge .pulse{width:8px;height:8px;background:var(--green);border-radius:50%;box-shadow:0 0 12px var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 12px var(--green)}50%{opacity:.5;box-shadow:0 0 4px var(--green)}}
+
+.hero h1{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1.05;letter-spacing:-3px;margin-bottom:28px}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--accent3) 0%,var(--accent) 30%,var(--gold) 70%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:200% 200%;animation:gradientShift 6s ease infinite}
+@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero h1 .outline{-webkit-text-stroke:1.5px var(--accent);-webkit-text-fill-color:transparent}
+
+.hero-sub{font-size:clamp(1rem,1.8vw,1.2rem);color:var(--text2);max-width:550px;margin-bottom:48px;line-height:1.8;font-weight:400}
+
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:700px}
+.stat-card{position:relative;padding:24px 20px;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(16px);transition:all .4s;overflow:hidden}
+.stat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(139,92,246,0.05),transparent);opacity:0;transition:opacity .4s}
+.stat-card:hover{transform:translateY(-6px);border-color:rgba(139,92,246,0.3);box-shadow:0 12px 40px rgba(139,92,246,0.15)}
+.stat-card:hover::before{opacity:1}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--text);letter-spacing:-1px}
+.stat-num .unit{font-size:.55em;color:var(--accent2);font-weight:500;margin-left:2px}
+.stat-label{font-size:.72rem;color:var(--text3);margin-top:6px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+
+/* ===== SECTION COMMON ===== */
+.section{padding:120px 0;position:relative}
+.section-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-size:.72rem;text-transform:uppercase;letter-spacing:4px;color:var(--accent);font-weight:600;margin-bottom:16px}
+.section-label::before{content:'';width:24px;height:1px;background:var(--accent)}
+.section-title{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:800;letter-spacing:-1.5px;margin-bottom:20px;line-height:1.2}
+.section-desc{color:var(--text2);max-width:550px;font-size:1rem;line-height:1.8;margin-bottom:56px}
 
 /* ===== BENTO ABOUT ===== */
-.section{padding:100px 0}
-.section-label{font-size:.75rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);font-weight:600;margin-bottom:12px}
-.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:16px}
-.section-desc{color:var(--text2);max-width:600px;font-size:1rem;line-height:1.7;margin-bottom:48px}
-
-.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto;gap:16px}
-.bento-card{background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:28px;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
-.bento-card:hover{transform:translateY(-3px);border-color:rgba(124,92,252,0.2);box-shadow:0 8px 40px rgba(0,0,0,0.3)}
-.bento-card .card-icon{font-size:2rem;margin-bottom:16px;display:block}
-.bento-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
-.bento-card p{color:var(--text2);font-size:.9rem;line-height:1.6}
-.bento-card .highlight{color:var(--accent2);font-weight:600}
-
-.b1{grid-column:span 6}
-.b2{grid-column:span 6}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.bento-card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden;backdrop-filter:blur(16px);transition:all .4s}
+.bento-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,0.4),transparent);opacity:0;transition:opacity .4s}
+.bento-card:hover{border-color:rgba(139,92,246,0.2);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.3)}
+.bento-card:hover::before{opacity:1}
+.bento-card .icon{font-size:2.2rem;margin-bottom:20px;display:block;filter:grayscale(0)}
+.bento-card h3{font-size:1.1rem;font-weight:700;margin-bottom:10px;letter-spacing:-0.3px}
+.bento-card p{color:var(--text2);font-size:.88rem;line-height:1.7}
+.bento-card .hl{color:var(--accent2);font-weight:600}
+.b1{grid-column:span 7}
+.b2{grid-column:span 5}
 .b3{grid-column:span 4}
 .b4{grid-column:span 4}
 .b5{grid-column:span 4}
 .b6{grid-column:span 8}
 .b7{grid-column:span 4}
 
+/* ===== BIG NUMBER SECTION ===== */
+.big-numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center;padding:80px 0}
+.big-num{position:relative}
+.big-num .number{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:900;letter-spacing:-3px;line-height:1}
+.big-num .number .plus{font-size:.5em;color:var(--accent)}
+.big-num .label{font-size:.85rem;color:var(--text2);margin-top:8px;font-weight:500}
+.big-num::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);width:1px;height:60%;background:var(--glass-border)}
+.big-num:last-child::after{display:none}
+
 /* ===== CASES ===== */
-.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
-.case-card{background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);overflow:hidden;transition:transform .3s,border-color .3s}
-.case-card:hover{transform:translateY(-6px);border-color:rgba(124,92,252,0.3)}
-.case-visual{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.case-visual .metric{font-size:3.5rem;font-weight:900;letter-spacing:-2px;z-index:2}
-.case-visual .metric .unit{font-size:.4em;color:var(--accent2)}
-.case-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,var(--bg2))}
-.case-body{padding:24px}
-.case-tag{display:inline-block;padding:4px 12px;border-radius:6px;font-size:.7rem;font-weight:600;margin-bottom:12px}
-.tag-爆款{background:rgba(251,146,60,0.15);color:var(--orange)}
-.tag-增长{background:rgba(52,211,153,0.15);color:var(--green)}
-.tag-破圈{background:rgba(96,165,250,0.15);color:var(--blue)}
-.tag-变现{background:rgba(244,114,182,0.15);color:var(--pink)}
-.case-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.4}
-.case-body p{color:var(--text2);font-size:.85rem;line-height:1.6;margin-bottom:16px}
-.case-metrics{display:flex;gap:16px;flex-wrap:wrap}
-.case-metric{font-size:.8rem;color:var(--text3)}
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:24px}
+.case-card{background:var(--bg2);border:1px solid var(--glass-border);border-radius:var(--radius);overflow:hidden;transition:all .5s cubic-bezier(.23,1,.32,1);position:relative}
+.case-card:hover{transform:translateY(-8px);border-color:rgba(139,92,246,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.case-hero{height:220px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.case-hero .big-metric{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,4vw,4rem);font-weight:900;letter-spacing:-2px;z-index:2;text-shadow:0 0 60px rgba(139,92,246,0.5)}
+.case-hero .big-metric .unit{font-size:.4em;color:var(--accent2);font-weight:500}
+.case-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,var(--bg2) 100%)}
+.case-body{padding:28px}
+.case-tag{display:inline-block;padding:5px 14px;border-radius:8px;font-size:.7rem;font-weight:600;margin-bottom:14px;letter-spacing:.5px}
+.tag-爆款{background:rgba(249,115,22,0.12);color:var(--orange);border:1px solid rgba(249,115,22,0.2)}
+.tag-增长{background:rgba(34,211,168,0.12);color:var(--green);border:1px solid rgba(34,211,168,0.2)}
+.tag-破圈{background:rgba(56,189,248,0.12);color:var(--blue);border:1px solid rgba(56,189,248,0.2)}
+.tag-变现{background:rgba(244,114,182,0.12);color:var(--pink);border:1px solid rgba(244,114,182,0.2)}
+.case-body h3{font-size:1.05rem;font-weight:700;margin-bottom:10px;line-height:1.4}
+.case-body>p{color:var(--text2);font-size:.85rem;line-height:1.7;margin-bottom:18px}
+.case-metrics{display:flex;gap:20px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--glass-border)}
+.case-metric{font-size:.78rem;color:var(--text3)}
 .case-metric strong{color:var(--text);font-weight:700}
 
-/* ===== EXPERIENCE ===== */
-.timeline{position:relative;padding-left:32px}
-.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),transparent)}
-.timeline-item{position:relative;margin-bottom:48px}
-.timeline-item::before{content:'';position:absolute;left:-29px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
-.exp-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px}
-.exp-role{font-size:1.15rem;font-weight:700}
-.exp-period{font-size:.8rem;color:var(--text3);font-weight:500}
-.exp-company{color:var(--accent2);font-size:.9rem;margin-bottom:12px}
-.exp-desc{color:var(--text2);font-size:.9rem;line-height:1.7}
-.exp-desc li{margin-bottom:6px}
-.exp-result{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--accent-glow);border-radius:var(--radius-sm);margin-top:12px;font-size:.85rem;font-weight:600;color:var(--accent2)}
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding-left:40px}
+.timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2) 50%,transparent)}
+.tl-item{position:relative;margin-bottom:56px}
+.tl-dot{position:absolute;left:-33px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);box-shadow:0 0 20px rgba(139,92,246,0.4)}
+.tl-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.tl-role{font-size:1.2rem;font-weight:700;letter-spacing:-0.3px}
+.tl-period{font-size:.78rem;color:var(--text3);font-weight:500;font-family:'Space Grotesk',sans-serif;letter-spacing:1px}
+.tl-company{color:var(--accent2);font-size:.88rem;margin-bottom:14px;font-weight:500}
+.tl-desc{color:var(--text2);font-size:.9rem;line-height:1.8}
+.tl-desc li{margin-bottom:8px}
+.tl-result{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.15);border-radius:var(--radius-sm);margin-top:16px;font-size:.85rem;font-weight:600;color:var(--accent3)}
 
-/* ===== SKILLS BENTO ===== */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
-.skill-chip{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-sm);transition:all .3s;font-size:.85rem;font-weight:500}
-.skill-chip:hover{border-color:rgba(124,92,252,0.3);transform:translateY(-2px)}
-.skill-chip .icon{font-size:1.2rem}
+/* ===== SKILLS ===== */
+.skills-wrap{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.skill-item{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius-sm);backdrop-filter:blur(10px);transition:all .3s;font-size:.88rem;font-weight:500}
+.skill-item:hover{border-color:rgba(139,92,246,0.3);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.skill-item .sk-icon{font-size:1.3rem}
 
 /* ===== CONTACT ===== */
-.contact-section{text-align:center;padding:120px 0}
-.contact-section h2{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1px;margin-bottom:12px}
-.contact-section .sub{color:var(--text2);margin-bottom:40px;font-size:1rem}
-.contact-cards{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
-.contact-card{display:flex;align-items:center;gap:14px;padding:18px 28px;background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);transition:all .3s;cursor:pointer}
-.contact-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(124,92,252,0.15)}
-.contact-card .c-icon{font-size:1.5rem}
-.contact-card .c-label{font-size:.75rem;color:var(--text3)}
-.contact-card .c-value{font-size:1rem;font-weight:600}
+.contact{text-align:center;padding:140px 0;position:relative}
+.contact h2{font-family:'Space Grotesk','Noto Sans SC',sans-serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;letter-spacing:-2px;margin-bottom:16px}
+.contact .sub{color:var(--text2);margin-bottom:48px;font-size:1.05rem}
+.contact-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.contact-link{display:flex;align-items:center;gap:16px;padding:20px 32px;background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--radius);backdrop-filter:blur(16px);transition:all .4s;text-decoration:none;cursor:pointer}
+.contact-link:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 40px rgba(139,92,246,0.15)}
+.contact-link .cl-icon{font-size:1.6rem}
+.contact-link .cl-label{font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:1px}
+.contact-link .cl-value{font-size:1.05rem;font-weight:700;color:var(--text)}
 
 /* ===== FOOTER ===== */
-footer{padding:40px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
-footer p{color:var(--text3);font-size:.8rem}
+footer{padding:48px 0;text-align:center;border-top:1px solid var(--glass-border)}
+footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 
-/* ===== SCROLL ANIMATIONS ===== */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease-out,transform .6s ease-out}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* ===== DIVIDER ===== */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);max-width:1200px;margin:0 auto}
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
-  .hero-stats{grid-template-columns:repeat(2,1fr)}
-  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:span 12}
-  .cases-grid{grid-template-columns:1fr}
-  nav .nav-links{display:none}
-  .exp-header{flex-direction:column}
+  body{cursor:auto}
+  .cursor,.cursor-dot,.noise{display:none}
   .hero{padding:100px 0 60px}
+  .hero h1{letter-spacing:-1.5px}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px}
+  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:span 12}
+  .big-numbers{grid-template-columns:1fr;gap:24px}
+  .big-num::after{display:none}
+  .cases-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
   .section{padding:60px 0}
+  .section-inner{padding:0 20px}
+  .contact-links{flex-direction:column;align-items:center}
+  .timeline{padding-left:32px}
 }
 @media(min-width:769px) and (max-width:1024px){
   .b1,.b2{grid-column:span 12}
   .b3,.b4,.b5{grid-column:span 4}
-  .b6{grid-column:span 8}
-  .b7{grid-column:span 4}
+  .b6{grid-column:span 12}
+  .b7{grid-column:span 12}
 }
 </style>
 </head>
 <body>
 
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="noise"></div>
+
 <!-- NAV -->
-<nav>
-<div class="container">
-  <div class="logo">Mark<span>.</span></div>
+<nav id="nav">
+<div class="inner">
+  <div class="nav-logo">Mark<span>.</span></div>
   <ul class="nav-links">
     <li><a href="#about">关于</a></li>
     <li><a href="#cases">案例</a></li>
@@ -169,96 +219,121 @@ footer p{color:var(--text3);font-size:.8rem}
 
 <!-- HERO -->
 <section class="hero">
-<div class="container">
-  <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span> 求职中 · base 深圳</div>
-    <h1>Hi，我是<span class="gradient">吕连生</span></h1>
-    <p class="hero-sub">短视频内容运营 & IP孵化。13年影像经验，从选题策划到拍摄剪辑全链路操盘。<br>擅长把0基础账号做出爆款内容，用数据驱动增长。</p>
-    <div class="hero-stats">
-      <div class="stat-card">
-        <div class="stat-num">572<span class="unit">万</span></div>
-        <div class="stat-label">单条最高播放</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">9.38<span class="unit">万</span></div>
-        <div class="stat-label">单条最高点赞</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">2<span class="unit">万+</span></div>
-        <div class="stat-label">孵化IP粉丝</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">500<span class="unit">+</span></div>
-        <div class="stat-label">累计拍摄场次</div>
-      </div>
+<div class="hero-bg">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+<div class="hero-content">
+  <div class="hero-badge"><span class="pulse"></span> 求职中 · base 深圳 · 期望 8-12K</div>
+  <h1>
+    <span class="line"><span>Hi，我是</span></span>
+    <span class="line"><span class="gradient">吕连生</span></span>
+    <span class="line"><span class="outline">短视频运营</span></span>
+  </h1>
+  <p class="hero-sub">13年影像经验，从选题到出片全链路操盘。<br>擅长把0基础账号做出爆款内容，用数据驱动增长。</p>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-num" data-target="572">0<span class="unit">万</span></div>
+      <div class="stat-label">单条播放</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="9.38">0<span class="unit">万</span></div>
+      <div class="stat-label">单条点赞</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="20000">0<span class="unit">+</span></div>
+      <div class="stat-label">IP粉丝</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" data-target="500">0<span class="unit">+</span></div>
+      <div class="stat-label">拍摄场次</div>
     </div>
   </div>
 </div>
 </section>
 
-<!-- BENTO ABOUT -->
+<!-- ABOUT BENTO -->
 <section class="section" id="about">
-<div class="container">
-  <div class="section-label reveal">About Me</div>
-  <h2 class="section-title reveal">全链路内容操盘手</h2>
-  <p class="section-desc reveal">从镜头后面的摄影师，到内容前面的运营人。不挑赛道，底层逻辑通用。</p>
-
+<div class="section-inner">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title">全链路内容操盘手</h2>
+  <p class="section-desc">从镜头后面的摄影师，到内容前面的运营人。底层方法论通用，不挑赛道。</p>
   <div class="bento">
-    <div class="bento-card b1 reveal">
-      <span class="card-icon">🎯</span>
+    <div class="bento-card b1">
+      <span class="icon">🎯</span>
       <h3>IP人设定位</h3>
-      <p>能快速判断一个人的表达特点和镜头感，找到<span class="highlight">最适合的内容方向</span>。不硬套模板，而是根据人物气质定策略——有人适合干货测评，有人适合生活记录。</p>
+      <p>快速判断一个人的表达特点和镜头感，找到<span class="hl">最适合的内容方向</span>。有人适合干货测评，有人适合生活记录——不硬套模板。</p>
     </div>
-    <div class="bento-card b2 reveal">
-      <span class="card-icon">📊</span>
+    <div class="bento-card b2">
+      <span class="icon">📊</span>
       <h3>数据驱动增长</h3>
-      <p>每条内容发出去只是开始。关注<span class="highlight">完播率、3秒留存、互动率、转化率</span>，用数据反推内容优化方向。不是拍脑袋感觉好，是用数据证明好。</p>
+      <p>每条内容发出去只是开始。关注<span class="hl">完播率、3秒留存、互动率、转化率</span>，用数据反推内容优化方向。</p>
     </div>
-    <div class="bento-card b3 reveal">
-      <span class="card-icon">🎬</span>
+    <div class="bento-card b3">
+      <span class="icon">🎬</span>
       <h3>拍摄剪辑</h3>
-      <p>13年一线拍摄，<span class="highlight">500+场</span>实战。Premiere、Final Cut、剪映全熟。一个人能从选题出片。</p>
+      <p>13年一线拍摄，<span class="hl">500+场</span>实战。Premiere、Final Cut、剪映全熟。</p>
     </div>
-    <div class="bento-card b4 reveal">
-      <span class="card-icon">📝</span>
+    <div class="bento-card b4">
+      <span class="icon">📝</span>
       <h3>选题策划</h3>
-      <p>研究目标用户痛点，拆解平台热门话题，找到<span class="highlight">有流量又能转化</span>的选题方向。</p>
+      <p>研究用户痛点，拆解热门话题，找到<span class="hl">有流量又能转化</span>的选题。</p>
     </div>
-    <div class="bento-card b5 reveal">
-      <span class="card-icon">🤖</span>
+    <div class="bento-card b5">
+      <span class="icon">🤖</span>
       <h3>AI提效</h3>
-      <p>自建AI辅助工作流：选题拆解、脚本初稿、文案优化、素材归档��<span class="highlight">效率翻倍</span>，省下时间做内容质量。</p>
+      <p>自建AI工作流：选题拆解、脚本初稿、文案优化、素材归档，<span class="hl">效率翻倍</span>。</p>
     </div>
-    <div class="bento-card b6 reveal">
-      <span class="card-icon">🚀</span>
-      <h3>从0到1孵化能力</h3>
-      <p>做过新人账号的首次内容打造，也做过成熟账号的增量突破。<span class="highlight">不是只管发视频的运营</span>，是把IP人设、内容策略、拍摄执行、数据复盘全链条串起来的人。</p>
+    <div class="bento-card b6">
+      <span class="icon">🚀</span>
+      <h3>从0到1孵化</h3>
+      <p>做过新人账号首次内容打造，也做过成熟账号增量突破。<span class="hl">不是只管发视频的运营</span>——是把人设、策略、执行、复盘全链条串起来的人。</p>
     </div>
-    <div class="bento-card b7 reveal">
-      <span class="card-icon">💡</span>
+    <div class="bento-card b7">
+      <span class="icon">💡</span>
       <h3>跨平台运营</h3>
-      <p>抖音、小红书、视频号、YouTube，<span class="highlight">了解各平台推荐机制差异</span>，同一内容做适配分发。</p>
+      <p>抖音、小红书、视频号、YouTube，<span class="hl">了解各平台推荐机制差异</span>。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- BIG NUMBERS -->
+<section style="background:var(--bg2)">
+<div class="section-inner">
+  <div class="big-numbers">
+    <div class="big-num">
+      <div class="number" data-target="572" data-suffix="万+">0</div>
+      <div class="label">单条最高播放</div>
+    </div>
+    <div class="big-num">
+      <div class="number" data-target="47.81" data-suffix="%">0</div>
+      <div class="label">完播率</div>
+    </div>
+    <div class="big-num">
+      <div class="number" data-target="80.56" data-suffix="%">0</div>
+      <div class="label">3秒留存率</div>
     </div>
   </div>
 </div>
 </section>
 
 <!-- CASES -->
-<section class="section" id="cases" style="background:var(--bg2)">
-<div class="container">
-  <div class="section-label reveal">Case Studies</div>
-  <h2 class="section-title reveal">数据说话</h2>
-  <p class="section-desc reveal">每一个数字都是后台真实数据。不是P出来的，是做出来的。</p>
-
+<section class="section" id="cases">
+<div class="section-inner">
+  <div class="section-label">Case Studies</div>
+  <h2 class="section-title">数据说话</h2>
+  <p class="section-desc">每一个数字都是后台真实数据。</p>
   <div class="cases-grid">
-    <div class="case-card reveal">
-      <div class="case-visual" style="background:linear-gradient(135deg,rgba(251,146,60,0.15),rgba(124,92,252,0.1))">
-        <div class="metric">572<span class="unit">万</span></div>
+    <div class="case-card">
+      <div class="case-hero" style="background:linear-gradient(135deg,rgba(249,115,22,0.12),rgba(139,92,246,0.08))">
+        <div class="big-metric">572<span class="unit">万</span></div>
       </div>
       <div class="case-body">
-        <span class="case-tag tag-爆款">爆款案例</span>
-        <h3>单条视频572万播放 · 9.38万点赞</h3>
-        <p>参与新人账号首次内容打造，从选题判断到拍摄剪辑全链路。讲干货、有对比、平台主动推流。完播率47.81%，3秒留存80.56%。</p>
+        <span class="case-tag tag-爆款">爆款</span>
+        <h3>单条572万播放 · 9.38万点赞</h3>
+        <p>新人账号首次内容打造，干货对比型选题。完播率47.81%，3秒留存80.56%，平台主动推流。</p>
         <div class="case-metrics">
           <span class="case-metric">播放 <strong>572万</strong></span>
           <span class="case-metric">点赞 <strong>9.38万</strong></span>
@@ -267,15 +342,14 @@ footer p{color:var(--text3);font-size:.8rem}
         </div>
       </div>
     </div>
-
-    <div class="case-card reveal">
-      <div class="case-visual" style="background:linear-gradient(135deg,rgba(52,211,153,0.15),rgba(96,165,250,0.1))">
-        <div class="metric">0→2<span class="unit">万+</span></div>
+    <div class="case-card">
+      <div class="case-hero" style="background:linear-gradient(135deg,rgba(34,211,168,0.12),rgba(56,189,248,0.08))">
+        <div class="big-metric">0→2<span class="unit">万+</span></div>
       </div>
       <div class="case-body">
-        <span class="case-tag tag-增长">账号增长</span>
+        <span class="case-tag tag-增长">增长</span>
         <h3>从0做到2万+粉丝 · 109条原创</h3>
-        <p>全新账号冷启动，持续产出高质量内容。内容带来几十组有效咨询，一个月内辅助成交3单。证明好内容=好生意。</p>
+        <p>全新账号冷启动。内容带来几十组有效咨询，一个月内辅助成交3单。好内容=好生意。</p>
         <div class="case-metrics">
           <span class="case-metric">粉丝 <strong>2万+</strong></span>
           <span class="case-metric">总赞 <strong>4.1万</strong></span>
@@ -284,31 +358,29 @@ footer p{color:var(--text3);font-size:.8rem}
         </div>
       </div>
     </div>
-
-    <div class="case-card reveal">
-      <div class="case-visual" style="background:linear-gradient(135deg,rgba(96,165,250,0.15),rgba(124,92,252,0.1))">
-        <div class="metric">29.5<span class="unit">万</span></div>
+    <div class="case-card">
+      <div class="case-hero" style="background:linear-gradient(135deg,rgba(56,189,248,0.12),rgba(139,92,246,0.08))">
+        <div class="big-metric">29.5<span class="unit">万</span></div>
       </div>
       <div class="case-body">
-        <span class="case-tag tag-破圈">破圈案例</span>
+        <span class="case-tag tag-破圈">破圈</span>
         <h3>城市话题内容 · 29.5万播放</h3>
-        <p>策划区域/城市角度的选题，找到本地人的情感共鸣点。平台给了5.5万流量激励，超过99.44%同类内容。</p>
+        <p>策划区域话题选题，找到本地人情感共鸣。平台给5.5万流量激励，超过99.44%同类内容。</p>
         <div class="case-metrics">
           <span class="case-metric">播放 <strong>29.5万</strong></span>
-          <span class="case-metric">流量激励 <strong>5.5万</strong></span>
+          <span class="case-metric">激励 <strong>5.5万</strong></span>
           <span class="case-metric">超同类 <strong>99.44%</strong></span>
         </div>
       </div>
     </div>
-
-    <div class="case-card reveal">
-      <div class="case-visual" style="background:linear-gradient(135deg,rgba(244,114,182,0.15),rgba(251,146,60,0.1))">
-        <div class="metric">3<span class="unit">万</span></div>
+    <div class="case-card">
+      <div class="case-hero" style="background:linear-gradient(135deg,rgba(244,114,182,0.12),rgba(249,115,22,0.08))">
+        <div class="big-metric">93.2<span class="unit">%</span></div>
       </div>
       <div class="case-body">
-        <span class="case-tag tag-爆款">种草爆款</span>
+        <span class="case-tag tag-爆款">种草</span>
         <h3>首页推荐93.2% · 转化率10.3%</h3>
-        <p>小红书种草内容，找到用户好奇的话题角度。93.2%流量来自首页推荐，证明内容本身就能撬动平台流量。</p>
+        <p>跨平台适配——小红书种草内容。标题、封面、内容节奏针对平台调性优化。</p>
         <div class="case-metrics">
           <span class="case-metric">观看 <strong>3万</strong></span>
           <span class="case-metric">首页推荐 <strong>93.2%</strong></span>
@@ -316,33 +388,31 @@ footer p{color:var(--text3);font-size:.8rem}
         </div>
       </div>
     </div>
-
-    <div class="case-card reveal">
-      <div class="case-visual" style="background:linear-gradient(135deg,rgba(201,169,110,0.15),rgba(52,211,153,0.1))">
-        <div class="metric">5.18<span class="unit">万</span></div>
+    <div class="case-card">
+      <div class="case-hero" style="background:linear-gradient(135deg,rgba(201,169,110,0.12),rgba(34,211,168,0.08))">
+        <div class="big-metric">5.18<span class="unit">万</span></div>
       </div>
       <div class="case-body">
-        <span class="case-tag tag-增长">YouTube增长</span>
+        <span class="case-tag tag-增长">YouTube</span>
         <h3>YouTube频道 · 5.18万订阅</h3>
-        <p>负责长视频全流程制作——现场拍摄、无人机航拍、人物采访、后期成片。把复杂信息转化成观众看得懂、愿意看的内容。</p>
+        <p>长视频全流程制作——现场拍摄、无人机航拍、人物采访、后期成片。</p>
         <div class="case-metrics">
           <span class="case-metric">订阅 <strong>5.18万</strong></span>
           <span class="case-metric">平台 <strong>YouTube</strong></span>
         </div>
       </div>
     </div>
-
-    <div class="case-card reveal">
-      <div class="case-visual" style="background:linear-gradient(135deg,rgba(124,92,252,0.15),rgba(244,114,182,0.1))">
-        <div class="metric">6.7<span class="unit">万</span></div>
+    <div class="case-card">
+      <div class="case-hero" style="background:linear-gradient(135deg,rgba(139,92,246,0.12),rgba(244,114,182,0.08))">
+        <div class="big-metric">6.7<span class="unit">万</span></div>
       </div>
       <div class="case-body">
-        <span class="case-tag tag-变现">变现验证</span>
+        <span class="case-tag tag-变现">流量</span>
         <h3>接地气内容 · 6.7万播放</h3>
-        <p>粉丝想看什么就去拍什么。接地气有共鸣的内容，平台主动给2.7万流量扶持。好内容的标准很简单：用户爱看。</p>
+        <p>粉丝想看什么就去拍什么。平台主动给2.7万流量扶持。好内容的标准：用户爱看。</p>
         <div class="case-metrics">
           <span class="case-metric">播放 <strong>6.7万</strong></span>
-          <span class="case-metric">流量扶持 <strong>2.7万</strong></span>
+          <span class="case-metric">扶持 <strong>2.7万</strong></span>
         </div>
       </div>
     </div>
@@ -351,156 +421,206 @@ footer p{color:var(--text3);font-size:.8rem}
 </section>
 
 <!-- EXPERIENCE -->
-<section class="section" id="experience">
-<div class="container">
-  <div class="section-label reveal">Experience</div>
-  <h2 class="section-title reveal">工作经历</h2>
-  <p class="section-desc reveal">13年，从摄影到运营，一直在内容这条路上。</p>
-
+<section class="section" id="experience" style="background:var(--bg2)">
+<div class="section-inner">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">工作经历</h2>
+  <p class="section-desc">13年，从摄影到运营，一直在内容这条路上。</p>
   <div class="timeline">
-    <div class="timeline-item reveal">
-      <div class="exp-header">
-        <span class="exp-role">短视频内容运营</span>
-        <span class="exp-period">2025.03 — 2026.06</span>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-header">
+        <span class="tl-role">短视频内容运营</span>
+        <span class="tl-period">2025.03 — 2026.06</span>
       </div>
-      <div class="exp-company">贝壳乐远（深圳盈家地产）· 深圳</div>
-      <ul class="exp-desc">
-        <li>负责多个短视频账号的内容全链路：IP人设定位、选题策划、脚本撰写、跟拍剪辑、数据复盘。</li>
-        <li>参与新人账号从0到首次内容测试，产出572万播放样本，证明账号方向和内容策略有效。</li>
-        <li>将内容数据与业务转化结合复盘，内容带来有效咨询，辅助一个月内成交3单。</li>
-        <li>搭建AI辅助工作流，用知识库+AI工具做选题拆解、脚本初稿、文案优化，效率提升显著。</li>
+      <div class="tl-company">贝壳乐远（深圳盈家地产）· 深圳</div>
+      <ul class="tl-desc">
+        <li>负责多个短视频账号全链路：IP人设定位 → 选题策划 → 脚本撰写 → 跟拍剪辑 → 数据复盘</li>
+        <li>新人账号首次内容测试，产出572万播放样本，完播率47.81%</li>
+        <li>搭建AI辅助工作流，选题和脚本效率提升显著</li>
       </ul>
-      <div class="exp-result">核心成果：572万播放 · 2万+粉丝 · 辅助成交3单</div>
+      <div class="tl-result">572万播放 · 2万+粉丝 · 辅助成交3单</div>
     </div>
-
-    <div class="timeline-item reveal">
-      <div class="exp-header">
-        <span class="exp-role">摄像后期 · 长视频内容制作</span>
-        <span class="exp-period">2020.01 — 2025.02</span>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-header">
+        <span class="tl-role">摄像后期 · 长视频制作</span>
+        <span class="tl-period">2020.01 — 2025.02</span>
       </div>
-      <div class="exp-company">前海寰宇笋盘网科技 · 深圳</div>
-      <ul class="exp-desc">
-        <li>为YouTube大湾区频道（5.18万订阅）提供全流程视频制作。</li>
-        <li>负责实地拍摄、无人机航拍、人物采访、后期剪辑包装，把复杂信息转化成用户爱看的内容。</li>
-        <li>积累信息型长视频的镜头组织、节奏控制和卖点表达能力。</li>
+      <div class="tl-company">前海寰宇笋盘网科技 · 深圳</div>
+      <ul class="tl-desc">
+        <li>YouTube频道（5.18万订阅）全流程视频制作</li>
+        <li>实地拍摄、无人机航拍、人物采访、后期剪辑包装</li>
       </ul>
-      <div class="exp-result">核心成果：5.18万YouTube订阅 · 长视频全流程制作</div>
+      <div class="tl-result">5.18万YouTube订阅 · 长视频全流程</div>
     </div>
-
-    <div class="timeline-item reveal">
-      <div class="exp-header">
-        <span class="exp-role">摄影 / 摄像师</span>
-        <span class="exp-period">2012.07 — 2019.12</span>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-header">
+        <span class="tl-role">摄影 / 摄像师</span>
+        <span class="tl-period">2012.07 — 2019.12</span>
       </div>
-      <div class="exp-company">深圳市焦点记录影视文化传播 · 深圳</div>
-      <ul class="exp-desc">
-        <li>7年商业摄影摄像，覆盖婚礼、婚纱、美食、室内空间、儿童活动等多场景。</li>
-        <li>独立完成500+场拍摄任务，练出快速出片和现场应变能力。</li>
+      <div class="tl-company">深圳焦点记录影视文化传播 · 深圳</div>
+      <ul class="tl-desc">
+        <li>7年商业摄影摄像，覆盖婚礼、婚纱、美食、室内空间等多场景</li>
+        <li>独立完成500+场拍摄任务</li>
       </ul>
-      <div class="exp-result">核心成果：500+场拍摄 · 多场景覆盖</div>
+      <div class="tl-result">500+场拍摄 · 多场景覆盖</div>
     </div>
   </div>
 </div>
 </section>
 
 <!-- SKILLS -->
-<section class="section" id="skills" style="background:var(--bg2)">
-<div class="container">
-  <div class="section-label reveal">Skills & Tools</div>
-  <h2 class="section-title reveal">技能工具箱</h2>
-  <p class="section-desc reveal">从拍摄到运营，从人工到AI，全链路覆盖。</p>
-
-  <div class="skills-grid reveal">
-    <div class="skill-chip"><span class="icon">🎬</span> Premiere Pro</div>
-    <div class="skill-chip"><span class="icon">✂️</span> Final Cut Pro</div>
-    <div class="skill-chip"><span class="icon">📱</span> 剪映专业版</div>
-    <div class="skill-chip"><span class="icon">📷</span> 摄影摄像</div>
-    <div class="skill-chip"><span class="icon">🎯</span> 选题策划</div>
-    <div class="skill-chip"><span class="icon">📝</span> 脚本撰写</div>
-    <div class="skill-chip"><span class="icon">🎙️</span> 口播拍摄</div>
-    <div class="skill-chip"><span class="icon">📊</span> 数据分析</div>
-    <div class="skill-chip"><span class="icon">🚀</span> IP孵化</div>
-    <div class="skill-chip"><span class="icon">📈</span> 账号运营</div>
-    <div class="skill-chip"><span class="icon">🤖</span> AI工作流</div>
-    <div class="skill-chip"><span class="icon">🧠</span> 知识库搭建</div>
-    <div class="skill-chip"><span class="icon">🌐</span> 多平台分发</div>
-    <div class="skill-chip"><span class="icon">✈️</span> 无人机航拍</div>
-    <div class="skill-chip"><span class="icon">💡</span> 内容策略</div>
-    <div class="skill-chip"><span class="icon">🔄</span> 复盘优化</div>
+<section class="section" id="skills">
+<div class="section-inner">
+  <div class="section-label">Skills & Tools</div>
+  <h2 class="section-title">技能工具箱</h2>
+  <p class="section-desc">从拍摄到运营，从人工到AI，全链路覆盖。</p>
+  <div class="skills-wrap">
+    <div class="skill-item"><span class="sk-icon">🎬</span> Premiere Pro</div>
+    <div class="skill-item"><span class="sk-icon">✂️</span> Final Cut Pro</div>
+    <div class="skill-item"><span class="sk-icon">📱</span> 剪映专业版</div>
+    <div class="skill-item"><span class="sk-icon">📷</span> 摄影摄像</div>
+    <div class="skill-item"><span class="sk-icon">✈️</span> 无人机航拍</div>
+    <div class="skill-item"><span class="sk-icon">🎯</span> 选题策划</div>
+    <div class="skill-item"><span class="sk-icon">📝</span> 脚本撰写</div>
+    <div class="skill-item"><span class="sk-icon">🎙️</span> 口播拍摄</div>
+    <div class="skill-item"><span class="sk-icon">📊</span> 数据分析</div>
+    <div class="skill-item"><span class="sk-icon">🚀</span> IP孵化</div>
+    <div class="skill-item"><span class="sk-icon">📈</span> 账号运营</div>
+    <div class="skill-item"><span class="sk-icon">🌐</span> 多平台分发</div>
+    <div class="skill-item"><span class="sk-icon">🤖</span> AI工作流</div>
+    <div class="skill-item"><span class="sk-icon">🧠</span> 知识库搭建</div>
+    <div class="skill-item"><span class="sk-icon">💡</span> 内容策略</div>
+    <div class="skill-item"><span class="sk-icon">🔄</span> 复盘优化</div>
   </div>
 </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section contact-section" id="contact">
-<div class="container">
-  <div class="section-label reveal">Get In Touch</div>
-  <h2 class="reveal">期待与你聊聊</h2>
-  <p class="sub reveal">短视频内容运营 · IP孵化 · base 深圳 · 期望薪资 8-12K</p>
-  <div class="contact-cards reveal">
-    <a href="tel:13632929143" class="contact-card">
-      <span class="c-icon">📞</span>
-      <div><div class="c-label">电话</div><div class="c-value">136-3292-9143</div></div>
+<section class="section contact" id="contact" style="background:var(--bg2)">
+<div class="section-inner">
+  <div class="section-label" style="justify-content:center">Get In Touch</div>
+  <h2>期待与你聊聊</h2>
+  <p class="sub">短视频内容运营 · IP孵化 · base 深圳 · 期望 8-12K</p>
+  <div class="contact-links">
+    <a href="tel:13632929143" class="contact-link">
+      <span class="cl-icon">📞</span>
+      <div><div class="cl-label">电话</div><div class="cl-value">136-3292-9143</div></div>
     </a>
-    <div class="contact-card" onclick="alert('微信号：348841220\n\n复制后添加微信即可')">
-      <span class="c-icon">💬</span>
-      <div><div class="c-label">微信</div><div class="c-value">348841220</div></div>
+    <div class="contact-link" onclick="alert('微信号：348841220')">
+      <span class="cl-icon">💬</span>
+      <div><div class="cl-label">微信</div><div class="cl-value">348841220</div></div>
     </div>
-    <a href="mailto:mark@example.com" class="contact-card">
-      <span class="c-icon">✉️</span>
-      <div><div class="c-label">邮箱</div><div class="c-value">联系获取</div></div>
+    <a href="https://github.com/lv348841220-blip/mark-portfolio-v2" target="_blank" class="contact-link">
+      <span class="cl-icon">🔗</span>
+      <div><div class="cl-label">作品集</div><div class="cl-value">GitHub</div></div>
     </a>
   </div>
 </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-<div class="container">
+<div class="section-inner">
   <p>Mark 吕连生 · 深圳 · 2026 · 所有数据均为后台真实数据</p>
 </div>
 </footer>
 
-<!-- SCROLL REVEAL JS -->
 <script>
-const reveals=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('visible'),i*80);
-      observer.unobserve(e.target);
-    }
-  });
-},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-reveals.forEach(el=>observer.observe(el));
-
-// Smooth nav shadow
-const nav=document.querySelector('nav');
-window.addEventListener('scroll',()=>{
-  nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(0,0,0,0.3)':'none';
+// ===== CUSTOM CURSOR =====
+const cursor=document.getElementById('cursor');
+const dot=document.getElementById('cursorDot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+function updateCursor(){cx+=(mx-cx)*.15;cy+=(my-cy)*.15;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(updateCursor);}
+updateCursor();
+document.querySelectorAll('a,button,.contact-link,.case-card,.stat-card,.bento-card,.skill-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
 });
 
+// ===== NAV SCROLL =====
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>50);
+});
+
+// ===== GSAP ANIMATIONS =====
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance
+const heroTl=gsap.timeline({delay:.3});
+heroTl.from('.hero-badge',{y:30,opacity:0,duration:.6,ease:'power3.out'})
+  .from('.hero h1 .line span',{y:100,opacity:0,duration:.8,stagger:.15,ease:'power3.out'},'-=.3')
+  .from('.hero-sub',{y:30,opacity:0,duration:.6,ease:'power3.out'},'-=.4')
+  .from('.stat-card',{y:40,opacity:0,duration:.5,stagger:.1,ease:'power3.out'},'-=.3');
+
 // Stat counter animation
-function animateCounters(){
-  document.querySelectorAll('.stat-num').forEach(el=>{
-    const text=el.textContent;
-    const match=text.match(/([\d.]+)/);
-    if(!match)return;
-    const target=parseFloat(match[1]);
-    const suffix=text.replace(match[1],'');
-    let current=0;
-    const step=target/40;
-    const timer=setInterval(()=>{
-      current+=step;
-      if(current>=target){current=target;clearInterval(timer);}
-      el.innerHTML=(target>100?Math.round(current):current.toFixed(2))+suffix;
-    },30);
-  });
+function animateCounter(el,target,suffix,isFloat){
+  const obj={val:0};
+  gsap.to(obj,{val:target,duration:2,ease:'power2.out',onUpdate:()=>{
+    el.textContent=(isFloat?obj.val.toFixed(2):Math.round(obj.val).toLocaleString())+suffix;
+  }});
 }
-const heroObs=new IntersectionObserver((entries)=>{
-  if(entries[0].isIntersecting){animateCounters();heroObs.disconnect();}
-},{threshold:0.3});
-heroObs.observe(document.querySelector('.hero-stats'));
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>{
+  const t=parseFloat(el.dataset.target);
+  const isFloat=t<100;
+  const unitEl=el.querySelector('.unit');
+  const suffix=unitEl?unitEl.outerText:'';
+  ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:()=>{
+    const numEl=document.createTextNode('');
+    if(unitEl){el.insertBefore(numEl,unitEl);}else{el.appendChild(numEl);}
+    const obj={val:0};
+    gsap.to(obj,{val:t,duration:2,ease:'power2.out',onUpdate:()=>{
+      numEl.textContent=isFloat?obj.val.toFixed(2):Math.round(obj.val).toLocaleString();
+    }});
+  }});
+});
+
+// Big numbers
+document.querySelectorAll('.big-num .number[data-target]').forEach(el=>{
+  const t=parseFloat(el.dataset.target);
+  const suffix=el.dataset.suffix||'';
+  const isFloat=t<100;
+  ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:()=>{
+    const obj={val:0};
+    gsap.to(obj,{val:t,duration:2.5,ease:'power2.out',onUpdate:()=>{
+      el.textContent=(isFloat?obj.val.toFixed(2):Math.round(obj.val).toLocaleString())+suffix;
+    }});
+  }});
+});
+
+// Bento cards
+gsap.utils.toArray('.bento-card').forEach((card,i)=>{
+  gsap.from(card,{y:50,opacity:0,duration:.6,delay:i*.08,ease:'power3.out',
+    scrollTrigger:{trigger:card,start:'top 88%',once:true}
+  });
+});
+
+// Case cards
+gsap.utils.toArray('.case-card').forEach((card,i)=>{
+  gsap.from(card,{y:60,opacity:0,duration:.7,delay:i*.1,ease:'power3.out',
+    scrollTrigger:{trigger:card,start:'top 88%',once:true}
+  });
+});
+
+// Timeline items
+gsap.utils.toArray('.tl-item').forEach((item,i)=>{
+  gsap.from(item,{x:-40,opacity:0,duration:.6,delay:i*.15,ease:'power3.out',
+    scrollTrigger:{trigger:item,start:'top 85%',once:true}
+  });
+});
+
+// Skills
+gsap.utils.toArray('.skill-item').forEach((item,i)=>{
+  gsap.from(item,{y:30,opacity:0,scale:.9,duration:.4,delay:i*.04,ease:'back.out(1.5)',
+    scrollTrigger:{trigger:item,start:'top 90%',once:true}
+  });
+});
+
+// Parallax orbs
+gsap.to('.orb1',{y:-100,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+gsap.to('.orb2',{y:-60,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
 </script>
 </body>
 </html>
