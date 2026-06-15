@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mark 吕连生 | 短视频内容运营 & IP孵化</title>
+<meta name="description" content="13年影像经验，全链路短视频内容运营。IP孵化、账号增长、数据驱动。base 深圳。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;
+  --text:#e8e8ed;--text2:#9898a6;--text3:#5a5a6e;
+  --accent:#7c5cfc;--accent2:#a78bfa;--accent-glow:rgba(124,92,252,0.15);
+  --gold:#c9a96e;--green:#34d399;--blue:#60a5fa;--pink:#f472b6;--orange:#fb923c;
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Noto Sans SC',-apple-system,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:var(--accent2);text-decoration:none;transition:color .2s}
+a:hover{color:var(--accent)}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;backdrop-filter:blur(20px);background:rgba(10,10,15,0.8);border-bottom:1px solid rgba(255,255,255,0.05);transition:all .3s}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+nav .logo{font-weight:800;font-size:1.1rem;color:var(--text);letter-spacing:-0.5px}
+nav .logo span{color:var(--accent)}
+nav .nav-links{display:flex;gap:28px;list-style:none}
+nav .nav-links a{color:var(--text2);font-size:.85rem;font-weight:500;transition:color .2s}
+nav .nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#fff!important;padding:8px 20px;border-radius:8px;font-weight:600;font-size:.85rem;transition:transform .2s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(124,92,252,0.4)}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(124,92,252,0.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 20%,rgba(201,169,110,0.05) 0%,transparent 40%);animation:float 20s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-2%,2%)}}
+.hero-content{position:relative;z-index:2}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:var(--accent-glow);border:1px solid rgba(124,92,252,0.3);border-radius:100px;font-size:.8rem;color:var(--accent2);margin-bottom:24px;animation:fadeUp .6s ease-out}
+.hero-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;letter-spacing:-2px;margin-bottom:20px;animation:fadeUp .6s ease-out .1s both}
+.hero h1 .gradient{background:linear-gradient(135deg,var(--accent),var(--accent2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2vw,1.3rem);color:var(--text2);max-width:600px;margin-bottom:40px;font-weight:400;line-height:1.7;animation:fadeUp .6s ease-out .2s both}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;animation:fadeUp .6s ease-out .3s both}
+.stat-card{background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:24px 20px;text-align:center;transition:transform .3s,border-color .3s}
+.stat-card:hover{transform:translateY(-4px);border-color:rgba(124,92,252,0.3)}
+.stat-num{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--text);letter-spacing:-1px}
+.stat-num .unit{font-size:.7em;color:var(--accent2);font-weight:600}
+.stat-label{font-size:.75rem;color:var(--text3);margin-top:4px;font-weight:500}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== BENTO ABOUT ===== */
+.section{padding:100px 0}
+.section-label{font-size:.75rem;text-transform:uppercase;letter-spacing:3px;color:var(--accent);font-weight:600;margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:16px}
+.section-desc{color:var(--text2);max-width:600px;font-size:1rem;line-height:1.7;margin-bottom:48px}
+
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto;gap:16px}
+.bento-card{background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);padding:28px;transition:transform .3s,border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
+.bento-card:hover{transform:translateY(-3px);border-color:rgba(124,92,252,0.2);box-shadow:0 8px 40px rgba(0,0,0,0.3)}
+.bento-card .card-icon{font-size:2rem;margin-bottom:16px;display:block}
+.bento-card h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.bento-card p{color:var(--text2);font-size:.9rem;line-height:1.6}
+.bento-card .highlight{color:var(--accent2);font-weight:600}
+
+.b1{grid-column:span 6}
+.b2{grid-column:span 6}
+.b3{grid-column:span 4}
+.b4{grid-column:span 4}
+.b5{grid-column:span 4}
+.b6{grid-column:span 8}
+.b7{grid-column:span 4}
+
+/* ===== CASES ===== */
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
+.case-card{background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);overflow:hidden;transition:transform .3s,border-color .3s}
+.case-card:hover{transform:translateY(-6px);border-color:rgba(124,92,252,0.3)}
+.case-visual{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.case-visual .metric{font-size:3.5rem;font-weight:900;letter-spacing:-2px;z-index:2}
+.case-visual .metric .unit{font-size:.4em;color:var(--accent2)}
+.case-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,var(--bg2))}
+.case-body{padding:24px}
+.case-tag{display:inline-block;padding:4px 12px;border-radius:6px;font-size:.7rem;font-weight:600;margin-bottom:12px}
+.tag-爆款{background:rgba(251,146,60,0.15);color:var(--orange)}
+.tag-增长{background:rgba(52,211,153,0.15);color:var(--green)}
+.tag-破圈{background:rgba(96,165,250,0.15);color:var(--blue)}
+.tag-变现{background:rgba(244,114,182,0.15);color:var(--pink)}
+.case-body h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;line-height:1.4}
+.case-body p{color:var(--text2);font-size:.85rem;line-height:1.6;margin-bottom:16px}
+.case-metrics{display:flex;gap:16px;flex-wrap:wrap}
+.case-metric{font-size:.8rem;color:var(--text3)}
+.case-metric strong{color:var(--text);font-weight:700}
+
+/* ===== EXPERIENCE ===== */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),transparent)}
+.timeline-item{position:relative;margin-bottom:48px}
+.timeline-item::before{content:'';position:absolute;left:-29px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bg)}
+.exp-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.exp-role{font-size:1.15rem;font-weight:700}
+.exp-period{font-size:.8rem;color:var(--text3);font-weight:500}
+.exp-company{color:var(--accent2);font-size:.9rem;margin-bottom:12px}
+.exp-desc{color:var(--text2);font-size:.9rem;line-height:1.7}
+.exp-desc li{margin-bottom:6px}
+.exp-result{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:var(--accent-glow);border-radius:var(--radius-sm);margin-top:12px;font-size:.85rem;font-weight:600;color:var(--accent2)}
+
+/* ===== SKILLS BENTO ===== */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.skill-chip{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-sm);transition:all .3s;font-size:.85rem;font-weight:500}
+.skill-chip:hover{border-color:rgba(124,92,252,0.3);transform:translateY(-2px)}
+.skill-chip .icon{font-size:1.2rem}
+
+/* ===== CONTACT ===== */
+.contact-section{text-align:center;padding:120px 0}
+.contact-section h2{font-size:clamp(2rem,4vw,3rem);font-weight:900;letter-spacing:-1px;margin-bottom:12px}
+.contact-section .sub{color:var(--text2);margin-bottom:40px;font-size:1rem}
+.contact-cards{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.contact-card{display:flex;align-items:center;gap:14px;padding:18px 28px;background:var(--bg2);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius);transition:all .3s;cursor:pointer}
+.contact-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 30px rgba(124,92,252,0.15)}
+.contact-card .c-icon{font-size:1.5rem}
+.contact-card .c-label{font-size:.75rem;color:var(--text3)}
+.contact-card .c-value{font-size:1rem;font-weight:600}
+
+/* ===== FOOTER ===== */
+footer{padding:40px 0;text-align:center;border-top:1px solid rgba(255,255,255,0.05)}
+footer p{color:var(--text3);font-size:.8rem}
+
+/* ===== SCROLL ANIMATIONS ===== */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease-out,transform .6s ease-out}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .hero-stats{grid-template-columns:repeat(2,1fr)}
+  .b1,.b2,.b3,.b4,.b5,.b6,.b7{grid-column:span 12}
+  .cases-grid{grid-template-columns:1fr}
+  nav .nav-links{display:none}
+  .exp-header{flex-direction:column}
+  .hero{padding:100px 0 60px}
+  .section{padding:60px 0}
+}
+@media(min-width:769px) and (max-width:1024px){
+  .b1,.b2{grid-column:span 12}
+  .b3,.b4,.b5{grid-column:span 4}
+  .b6{grid-column:span 8}
+  .b7{grid-column:span 4}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+<div class="container">
+  <div class="logo">Mark<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">关于</a></li>
+    <li><a href="#cases">案例</a></li>
+    <li><a href="#experience">经历</a></li>
+    <li><a href="#skills">技能</a></li>
+    <li><a href="#contact" class="nav-cta">联系我</a></li>
+  </ul>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<div class="container">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> 求职中 · base 深圳</div>
+    <h1>Hi，我是<span class="gradient">吕连生</span></h1>
+    <p class="hero-sub">短视频内容运营 & IP孵化。13年影像经验，从选题策划到拍摄剪辑全链路操盘。<br>擅长把0基础账号做出爆款内容，用数据驱动增长。</p>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">572<span class="unit">万</span></div>
+        <div class="stat-label">单条最高播放</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">9.38<span class="unit">万</span></div>
+        <div class="stat-label">单条最高点赞</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2<span class="unit">万+</span></div>
+        <div class="stat-label">孵化IP粉丝</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">500<span class="unit">+</span></div>
+        <div class="stat-label">累计拍摄场次</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- BENTO ABOUT -->
+<section class="section" id="about">
+<div class="container">
+  <div class="section-label reveal">About Me</div>
+  <h2 class="section-title reveal">全链路内容操盘手</h2>
+  <p class="section-desc reveal">从镜头后面的摄影师，到内容前面的运营人。不挑赛道，底层逻辑通用。</p>
+
+  <div class="bento">
+    <div class="bento-card b1 reveal">
+      <span class="card-icon">🎯</span>
+      <h3>IP人设定位</h3>
+      <p>能快速判断一个人的表达特点和镜头感，找到<span class="highlight">最适合的内容方向</span>。不硬套模板，而是根据人物气质定策略——有人适合干货测评，有人适合生活记录。</p>
+    </div>
+    <div class="bento-card b2 reveal">
+      <span class="card-icon">📊</span>
+      <h3>数据驱动增长</h3>
+      <p>每条内容发出去只是开始。关注<span class="highlight">完播率、3秒留存、互动率、转化率</span>，用数据反推内容优化方向。不是拍脑袋感觉好，是用数据证明好。</p>
+    </div>
+    <div class="bento-card b3 reveal">
+      <span class="card-icon">🎬</span>
+      <h3>拍摄剪辑</h3>
+      <p>13年一线拍摄，<span class="highlight">500+场</span>实战。Premiere、Final Cut、剪映全熟。一个人能从选题出片。</p>
+    </div>
+    <div class="bento-card b4 reveal">
+      <span class="card-icon">📝</span>
+      <h3>选题策划</h3>
+      <p>研究目标用户痛点，拆解平台热门话题，找到<span class="highlight">有流量又能转化</span>的选题方向。</p>
+    </div>
+    <div class="bento-card b5 reveal">
+      <span class="card-icon">🤖</span>
+      <h3>AI提效</h3>
+      <p>自建AI辅助工作流：选题拆解、脚本初稿、文案优化、素材归档��<span class="highlight">效率翻倍</span>，省下时间做内容质量。</p>
+    </div>
+    <div class="bento-card b6 reveal">
+      <span class="card-icon">🚀</span>
+      <h3>从0到1孵化能力</h3>
+      <p>做过新人账号的首次内容打造，也做过成熟账号的增量突破。<span class="highlight">不是只管发视频的运营</span>，是把IP人设、内容策略、拍摄执行、数据复盘全链条串起来的人。</p>
+    </div>
+    <div class="bento-card b7 reveal">
+      <span class="card-icon">💡</span>
+      <h3>跨平台运营</h3>
+      <p>抖音、小红书、视频号、YouTube，<span class="highlight">了解各平台推荐机制差异</span>，同一内容做适配分发。</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- CASES -->
+<section class="section" id="cases" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label reveal">Case Studies</div>
+  <h2 class="section-title reveal">数据说话</h2>
+  <p class="section-desc reveal">每一个数字都是后台真实数据。不是P出来的，是做出来的。</p>
+
+  <div class="cases-grid">
+    <div class="case-card reveal">
+      <div class="case-visual" style="background:linear-gradient(135deg,rgba(251,146,60,0.15),rgba(124,92,252,0.1))">
+        <div class="metric">572<span class="unit">万</span></div>
+      </div>
+      <div class="case-body">
+        <span class="case-tag tag-爆款">爆款案例</span>
+        <h3>单条视频572万播放 · 9.38万点赞</h3>
+        <p>参与新人账号首次内容打造，从选题判断到拍摄剪辑全链路。讲干货、有对比、平台主动推流。完播率47.81%，3秒留存80.56%。</p>
+        <div class="case-metrics">
+          <span class="case-metric">播放 <strong>572万</strong></span>
+          <span class="case-metric">点赞 <strong>9.38万</strong></span>
+          <span class="case-metric">涨粉 <strong>+7,443</strong></span>
+          <span class="case-metric">收藏 <strong>9.4万</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-visual" style="background:linear-gradient(135deg,rgba(52,211,153,0.15),rgba(96,165,250,0.1))">
+        <div class="metric">0→2<span class="unit">万+</span></div>
+      </div>
+      <div class="case-body">
+        <span class="case-tag tag-增长">账号增长</span>
+        <h3>从0做到2万+粉丝 · 109条原创</h3>
+        <p>全新账号冷启动，持续产出高质量内容。内容带来几十组有效咨询，一个月内辅助成交3单。证明好内容=好生意。</p>
+        <div class="case-metrics">
+          <span class="case-metric">粉丝 <strong>2万+</strong></span>
+          <span class="case-metric">总赞 <strong>4.1万</strong></span>
+          <span class="case-metric">原创 <strong>109条</strong></span>
+          <span class="case-metric">成交 <strong>3单/月</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-visual" style="background:linear-gradient(135deg,rgba(96,165,250,0.15),rgba(124,92,252,0.1))">
+        <div class="metric">29.5<span class="unit">万</span></div>
+      </div>
+      <div class="case-body">
+        <span class="case-tag tag-破圈">破圈案例</span>
+        <h3>城市话题内容 · 29.5万播放</h3>
+        <p>策划区域/城市角度的选题，找到本地人的情感共鸣点。平台给了5.5万流量激励，超过99.44%同类内容。</p>
+        <div class="case-metrics">
+          <span class="case-metric">播放 <strong>29.5万</strong></span>
+          <span class="case-metric">流量激励 <strong>5.5万</strong></span>
+          <span class="case-metric">超同类 <strong>99.44%</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-visual" style="background:linear-gradient(135deg,rgba(244,114,182,0.15),rgba(251,146,60,0.1))">
+        <div class="metric">3<span class="unit">万</span></div>
+      </div>
+      <div class="case-body">
+        <span class="case-tag tag-爆款">种草爆款</span>
+        <h3>首页推荐93.2% · 转化率10.3%</h3>
+        <p>小红书种草内容，找到用户好奇的话题角度。93.2%流量来自首页推荐，证明内容本身就能撬动平台流量。</p>
+        <div class="case-metrics">
+          <span class="case-metric">观看 <strong>3万</strong></span>
+          <span class="case-metric">首页推荐 <strong>93.2%</strong></span>
+          <span class="case-metric">转化率 <strong>10.3%</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-visual" style="background:linear-gradient(135deg,rgba(201,169,110,0.15),rgba(52,211,153,0.1))">
+        <div class="metric">5.18<span class="unit">万</span></div>
+      </div>
+      <div class="case-body">
+        <span class="case-tag tag-增长">YouTube增长</span>
+        <h3>YouTube频道 · 5.18万订阅</h3>
+        <p>负责长视频全流程制作——现场拍摄、无人机航拍、人物采访、后期成片。把复杂信息转化成观众看得懂、愿意看的内容。</p>
+        <div class="case-metrics">
+          <span class="case-metric">订阅 <strong>5.18万</strong></span>
+          <span class="case-metric">平台 <strong>YouTube</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-card reveal">
+      <div class="case-visual" style="background:linear-gradient(135deg,rgba(124,92,252,0.15),rgba(244,114,182,0.1))">
+        <div class="metric">6.7<span class="unit">万</span></div>
+      </div>
+      <div class="case-body">
+        <span class="case-tag tag-变现">变现验证</span>
+        <h3>接地气内容 · 6.7万播放</h3>
+        <p>粉丝想看什么就去拍什么。接地气有共鸣的内容，平台主动给2.7万流量扶持。好内容的标准很简单：用户爱看。</p>
+        <div class="case-metrics">
+          <span class="case-metric">播放 <strong>6.7万</strong></span>
+          <span class="case-metric">流量扶持 <strong>2.7万</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+<div class="container">
+  <div class="section-label reveal">Experience</div>
+  <h2 class="section-title reveal">工作经历</h2>
+  <p class="section-desc reveal">13年，从摄影到运营，一直在内容这条路上。</p>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="exp-header">
+        <span class="exp-role">短视频内容运营</span>
+        <span class="exp-period">2025.03 — 2026.06</span>
+      </div>
+      <div class="exp-company">贝壳乐远（深圳盈家地产）· 深圳</div>
+      <ul class="exp-desc">
+        <li>负责多个短视频账号的内容全链路：IP人设定位、选题策划、脚本撰写、跟拍剪辑、数据复盘。</li>
+        <li>参与新人账号从0到首次内容测试，产出572万播放样本，证明账号方向和内容策略有效。</li>
+        <li>将内容数据与业务转化结合复盘，内容带来有效咨询，辅助一个月内成交3单。</li>
+        <li>搭建AI辅助工作流，用知识库+AI工具做选题拆解、脚本初稿、文案优化，效率提升显著。</li>
+      </ul>
+      <div class="exp-result">核心成果：572万播放 · 2万+粉丝 · 辅助成交3单</div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="exp-header">
+        <span class="exp-role">摄像后期 · 长视频内容制作</span>
+        <span class="exp-period">2020.01 — 2025.02</span>
+      </div>
+      <div class="exp-company">前海寰宇笋盘网科技 · 深圳</div>
+      <ul class="exp-desc">
+        <li>为YouTube大湾区频道（5.18万订阅）提供全流程视频制作。</li>
+        <li>负责实地拍摄、无人机航拍、人物采访、后期剪辑包装，把复杂信息转化成用户爱看的内容。</li>
+        <li>积累信息型长视频的镜头组织、节奏控制和卖点表达能力。</li>
+      </ul>
+      <div class="exp-result">核心成果：5.18万YouTube订阅 · 长视频全流程制作</div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="exp-header">
+        <span class="exp-role">摄影 / 摄像师</span>
+        <span class="exp-period">2012.07 — 2019.12</span>
+      </div>
+      <div class="exp-company">深圳市焦点记录影视文化传播 · 深圳</div>
+      <ul class="exp-desc">
+        <li>7年商业摄影摄像，覆盖婚礼、婚纱、美食、室内空间、儿童活动等多场景。</li>
+        <li>独立完成500+场拍摄任务，练出快速出片和现场应变能力。</li>
+      </ul>
+      <div class="exp-result">核心成果：500+场拍摄 · 多场景覆盖</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills" style="background:var(--bg2)">
+<div class="container">
+  <div class="section-label reveal">Skills & Tools</div>
+  <h2 class="section-title reveal">技能工具箱</h2>
+  <p class="section-desc reveal">从拍摄到运营，从人工到AI，全链路覆盖。</p>
+
+  <div class="skills-grid reveal">
+    <div class="skill-chip"><span class="icon">🎬</span> Premiere Pro</div>
+    <div class="skill-chip"><span class="icon">✂️</span> Final Cut Pro</div>
+    <div class="skill-chip"><span class="icon">📱</span> 剪映专业版</div>
+    <div class="skill-chip"><span class="icon">📷</span> 摄影摄像</div>
+    <div class="skill-chip"><span class="icon">🎯</span> 选题策划</div>
+    <div class="skill-chip"><span class="icon">📝</span> 脚本撰写</div>
+    <div class="skill-chip"><span class="icon">🎙️</span> 口播拍摄</div>
+    <div class="skill-chip"><span class="icon">📊</span> 数据分析</div>
+    <div class="skill-chip"><span class="icon">🚀</span> IP孵化</div>
+    <div class="skill-chip"><span class="icon">📈</span> 账号运营</div>
+    <div class="skill-chip"><span class="icon">🤖</span> AI工作流</div>
+    <div class="skill-chip"><span class="icon">🧠</span> 知识库搭建</div>
+    <div class="skill-chip"><span class="icon">🌐</span> 多平台分发</div>
+    <div class="skill-chip"><span class="icon">✈️</span> 无人机航拍</div>
+    <div class="skill-chip"><span class="icon">💡</span> 内容策略</div>
+    <div class="skill-chip"><span class="icon">🔄</span> 复盘优化</div>
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+<div class="container">
+  <div class="section-label reveal">Get In Touch</div>
+  <h2 class="reveal">期待与你聊聊</h2>
+  <p class="sub reveal">短视频内容运营 · IP孵化 · base 深圳 · 期望薪资 8-12K</p>
+  <div class="contact-cards reveal">
+    <a href="tel:13632929143" class="contact-card">
+      <span class="c-icon">📞</span>
+      <div><div class="c-label">电话</div><div class="c-value">136-3292-9143</div></div>
+    </a>
+    <div class="contact-card" onclick="alert('微信号：348841220\n\n复制后添加微信即可')">
+      <span class="c-icon">💬</span>
+      <div><div class="c-label">微信</div><div class="c-value">348841220</div></div>
+    </div>
+    <a href="mailto:mark@example.com" class="contact-card">
+      <span class="c-icon">✉️</span>
+      <div><div class="c-label">邮箱</div><div class="c-value">联系获取</div></div>
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+<div class="container">
+  <p>Mark 吕连生 · 深圳 · 2026 · 所有数据均为后台真实数据</p>
+</div>
+</footer>
+
+<!-- SCROLL REVEAL JS -->
+<script>
+const reveals=document.querySelectorAll('.reveal');
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*80);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+reveals.forEach(el=>observer.observe(el));
+
+// Smooth nav shadow
+const nav=document.querySelector('nav');
+window.addEventListener('scroll',()=>{
+  nav.style.boxShadow=window.scrollY>50?'0 4px 30px rgba(0,0,0,0.3)':'none';
+});
+
+// Stat counter animation
+function animateCounters(){
+  document.querySelectorAll('.stat-num').forEach(el=>{
+    const text=el.textContent;
+    const match=text.match(/([\d.]+)/);
+    if(!match)return;
+    const target=parseFloat(match[1]);
+    const suffix=text.replace(match[1],'');
+    let current=0;
+    const step=target/40;
+    const timer=setInterval(()=>{
+      current+=step;
+      if(current>=target){current=target;clearInterval(timer);}
+      el.innerHTML=(target>100?Math.round(current):current.toFixed(2))+suffix;
+    },30);
+  });
+}
+const heroObs=new IntersectionObserver((entries)=>{
+  if(entries[0].isIntersecting){animateCounters();heroObs.disconnect();}
+},{threshold:0.3});
+heroObs.observe(document.querySelector('.hero-stats'));
+</script>
+</body>
+</html>
