@@ -171,6 +171,41 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
 /* ===== DIVIDER ===== */
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);max-width:1200px;margin:0 auto}
 
+/* ===== HERO AVATAR ===== */
+.hero-avatar{width:100px;height:100px;border-radius:50%;border:3px solid var(--accent);box-shadow:0 0 30px rgba(139,92,246,0.4);margin-bottom:24px;object-fit:cover}
+
+/* ===== SCREENSHOT GALLERY ===== */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);transition:all .4s;cursor:pointer;aspect-ratio:9/16}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.gallery-item:hover{transform:translateY(-6px);border-color:rgba(139,92,246,0.3);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.gallery-item:hover img{transform:scale(1.05)}
+.gallery-item .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(6,6,11,0.9) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:20px;opacity:0;transition:opacity .3s}
+.gallery-item:hover .overlay{opacity:1}
+.gallery-item .overlay .platform{font-size:.7rem;color:var(--accent2);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.gallery-item .overlay .caption{font-size:.9rem;font-weight:600}
+.gallery-item .overlay .data{font-size:.78rem;color:var(--text2);margin-top:4px}
+
+/* ===== VIDEO GALLERY ===== */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.video-card{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--glass-border);transition:all .4s;cursor:pointer;background:var(--bg2)}
+.video-card img{width:100%;aspect-ratio:16/9;object-fit:cover;transition:transform .5s}
+.video-card:hover{transform:translateY(-6px);border-color:rgba(139,92,246,0.3);box-shadow:0 16px 48px rgba(0,0,0,0.4)}
+.video-card:hover img{transform:scale(1.05)}
+.video-card .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(139,92,246,0.8);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px);transition:all .3s;z-index:2}
+.video-card:hover .play-btn{background:var(--accent);transform:translate(-50%,-50%) scale(1.1);box-shadow:0 0 40px rgba(139,92,246,0.5)}
+.video-card .play-btn svg{width:24px;height:24px;fill:#fff;margin-left:3px}
+.video-card .v-info{padding:16px 20px}
+.video-card .v-info h4{font-size:.9rem;font-weight:700;margin-bottom:4px}
+.video-card .v-info .v-meta{font-size:.75rem;color:var(--text3)}
+
+/* ===== LIGHTBOX ===== */
+.lightbox{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.92);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;padding:40px}
+.lightbox.active{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:var(--radius-sm);box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.lightbox .close{position:absolute;top:24px;right:24px;width:48px;height:48px;background:rgba(255,255,255,0.1);border:none;border-radius:50%;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.lightbox .close:hover{background:rgba(255,255,255,0.2)}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
   body{cursor:auto}
@@ -210,6 +245,8 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
   <ul class="nav-links">
     <li><a href="#about">关于</a></li>
     <li><a href="#cases">案例</a></li>
+    <li><a href="#gallery">截图</a></li>
+    <li><a href="#videos">视频</a></li>
     <li><a href="#experience">经历</a></li>
     <li><a href="#skills">技能</a></li>
     <li><a href="#contact" class="nav-cta">联系我</a></li>
@@ -225,6 +262,7 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
   <div class="orb orb3"></div>
 </div>
 <div class="hero-content">
+  <img src="assets/avatar/avatar_web.jpg" alt="Mark 吕连生" class="hero-avatar">
   <div class="hero-badge"><span class="pulse"></span> 求职中 · base 深圳 · 期望 8-12K</div>
   <h1>
     <span class="line"><span>Hi，我是</span></span>
@@ -419,6 +457,130 @@ footer p{color:var(--text3);font-size:.78rem;letter-spacing:.5px}
   </div>
 </div>
 </section>
+
+<!-- SCREENSHOT GALLERY -->
+<section class="section" id="gallery" style="background:var(--bg2)">
+<div class="section-inner">
+  <div class="section-label">Screenshots</div>
+  <h2 class="section-title">后台数据实拍</h2>
+  <p class="section-desc">所有数据均为平台后台真实截图，点击可放大查看。</p>
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/liutao-douyin_web.jpg" alt="深圳探房刘涛-抖音" loading="lazy">
+      <div class="overlay">
+        <span class="platform">抖音</span>
+        <span class="caption">深圳探房刘涛</span>
+        <span class="data">572万播放 · 9.38万点赞</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/laowu-douyin_web.jpg" alt="老吴在坪山-抖音" loading="lazy">
+      <div class="overlay">
+        <span class="platform">抖音</span>
+        <span class="caption">老吴在坪山</span>
+        <span class="data">29.5万播放 · 5.5万流量激励</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/laowu-xhs_web.jpg" alt="老吴在坪山-小红书" loading="lazy">
+      <div class="overlay">
+        <span class="platform">小红书</span>
+        <span class="caption">老吴在坪山</span>
+        <span class="data">3万观看 · 首页推荐93.2%</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/laowu-sph_web.jpg" alt="老吴在坪山-视频号" loading="lazy">
+      <div class="overlay">
+        <span class="platform">视频号</span>
+        <span class="caption">老吴在坪山</span>
+        <span class="data">视频号运营数据</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/yingjia-account_web.jpg" alt="深圳盈家找房" loading="lazy">
+      <div class="overlay">
+        <span class="platform">抖音</span>
+        <span class="caption">深圳盈家找房</span>
+        <span class="data">企业矩阵账号</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/huanyu-youtube_web.jpg" alt="寰宇笋盘-YouTube" loading="lazy">
+      <div class="overlay">
+        <span class="platform">YouTube</span>
+        <span class="caption">寰宇笋盘 GC Global</span>
+        <span class="data">5.18万订阅</span>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="assets/screenshots/new-data1_web.jpg" alt="最新数据截图" loading="lazy">
+      <div class="overlay">
+        <span class="platform">数据</span>
+        <span class="caption">最新运营数据</span>
+        <span class="data">后台真实数据</span>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- VIDEO SHOWCASE -->
+<section class="section" id="videos">
+<div class="section-inner">
+  <div class="section-label">Videos</div>
+  <h2 class="section-title">视频作品</h2>
+  <p class="section-desc">部分代表作品预览。涵盖口播干货、城市话题、探盘实拍、宣传片等多种类型。</p>
+  <div class="video-grid">
+    <div class="video-card">
+      <img src="assets/videos/thumb_taoge.jpg" alt="涛哥-力高" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>涛哥-力高 探盘实拍</h4><span class="v-meta">口播干货 · 探盘</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_逻辑.jpg" alt="深圳买房逻辑" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>深圳买房逻辑</h4><span class="v-meta">干货口播 · 知识科普</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_huxing.jpg" alt="好户型的标准" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>好户型的标准</h4><span class="v-meta">干货对比 · 爆款选题</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_louceng.jpg" alt="买房如何选楼层" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>买房如何选楼层</h4><span class="v-meta">干货科普 · 高互动</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_apec.jpg" alt="2026深圳APEC" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>2026深圳APEC</h4><span class="v-meta">城市话题 · 破圈内容</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_laowu-market.jpg" alt="老吴菜市场" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>老吴在坪山 · 菜市场</h4><span class="v-meta">本地生活 · 接地气</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_zhongcheng.jpg" alt="中城花园" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>中城花园 探盘</h4><span class="v-meta">实地拍摄 · 探盘</span></div>
+    </div>
+    <div class="video-card">
+      <img src="assets/videos/thumb_宣传片.jpg" alt="十分愛長沙灣宣傳片" loading="lazy">
+      <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="v-info"><h4>十分愛長沙灣 宣傳片</h4><span class="v-meta">宣传片 · 全流程制作</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<button class="close" onclick="closeLightbox()">×</button>
+<img id="lightbox-img" src="" alt="">
+</div>
 
 <!-- EXPERIENCE -->
 <section class="section" id="experience" style="background:var(--bg2)">
@@ -621,6 +783,35 @@ gsap.utils.toArray('.skill-item').forEach((item,i)=>{
 // Parallax orbs
 gsap.to('.orb1',{y:-100,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
 gsap.to('.orb2',{y:-60,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+
+// Gallery animation
+gsap.utils.toArray('.gallery-item').forEach((item,i)=>{
+  gsap.from(item,{y:50,opacity:0,scale:.95,duration:.5,delay:i*.08,ease:'power3.out',
+    scrollTrigger:{trigger:item,start:'top 88%',once:true}
+  });
+});
+
+// Video cards animation
+gsap.utils.toArray('.video-card').forEach((card,i)=>{
+  gsap.from(card,{y:50,opacity:0,duration:.5,delay:i*.08,ease:'power3.out',
+    scrollTrigger:{trigger:card,start:'top 88%',once:true}
+  });
+});
+
+// ===== LIGHTBOX =====
+function openLightbox(item){
+  const img=item.querySelector('img');
+  const lb=document.getElementById('lightbox');
+  const lbImg=document.getElementById('lightbox-img');
+  lbImg.src=img.src.replace('_web','');
+  lb.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 </script>
 </body>
 </html>
